@@ -9,59 +9,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis: Array<String> = ["🚗","🚜", "🚑", "🚌", "🚒", "🏎", "🚃", "✈️"]
-    @State var emojiCount = 6
+    var emojis: Array<String> = ["🚗","🚜", "🚑", "🚌", "🚒", "🏎", "🚃", "✈️", "🚤", "🛵", "🚓", "🚁", "🏍", "🛺","🚂","🛸","🛳","🚀","🚚","🚅"]
+    
+    
+    
+    @State var emojiCount = 20
     
     var body: some View {
         VStack{
-            HStack{
-                ForEach(emojis[0..<emojiCount], id: \.self){ emoji in
-                    CardView(content: emoji)
+            ScrollView{
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
+                    ForEach(emojis[0..<emojiCount], id: \.self){ emoji in
+                        CardView(content: emoji)
+                            .aspectRatio(2/3, contentMode: .fit)
+                    }
                 }
             }
-            
-            HStack{
-                add
-                Spacer()
-                remove
-            }.padding(.horizontal)
+            .foregroundColor(.red)
+            Spacer()
         }
         .padding(.horizontal)
-        .foregroundColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/)
     }
     
-    
-    
-    
-    
-    
-    
-    
-    var add :some View{
-        Button(action: {
-            emojiCount += 1
-        }, label: {
-            VStack{
-                Text("+")
-            }
-        })
-    }
-    
-    var remove: some View{
-        Button(action: {
-            emojiCount -= 1
-        }, label: {
-            VStack{
-                Text("-")
-            }
-        })
-        
-    }
 }
-
-
-
-
 
 
 
@@ -72,11 +42,11 @@ struct CardView: View {
     var body: some View{
         ZStack{
             let shape = RoundedRectangle(cornerRadius: 20)
+                
             if isFaceUp{
                 shape.fill().foregroundColor(.white)
-                shape.stroke(lineWidth: 3)
-                Text(content)
-                    .font(.largeTitle)
+                shape.strokeBorder(lineWidth: 3)
+                Text(content).font(.largeTitle)
                 
             } else{
                     shape.fill()
