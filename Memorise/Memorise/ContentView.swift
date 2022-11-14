@@ -30,8 +30,6 @@ struct ContentView: View {
     }
 }
 
-
-
 struct CardView: View {
     let card: MemoryModel<String>.Card
     
@@ -40,13 +38,14 @@ struct CardView: View {
             let shape = RoundedRectangle(cornerRadius: 20)
             
             if card.isFaceUp{
-                    shape.fill().foregroundColor(.white)
-                    shape.strokeBorder(lineWidth: 3)
+                shape.fill().foregroundColor(.white)
+                shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
-                    
-                } else{
-                        shape.fill()
-                }
+            } else if card.isMatched{
+                shape.opacity(0)
+            } else{
+                    shape.fill()
+            }
             }
         }
     }
